@@ -1,0 +1,38 @@
+{
+    "units": [
+      {
+        "id": "u1",
+        "name": "ROKUZEN - Centro",
+        "posts": [
+          {"id":"p1","name":"Sala 1","type":"maca"},
+          {"id":"p2","name":"Cadeira Quick 1","type":"quick"},
+          {"id":"p3","name":"Poltrona 1","type":"reflexo"}
+        ],
+        "therapists": [
+          {"id":"t1","name":"Ana"},
+          {"id":"t2","name":"Bruno"},
+          {"id":"t3","name":"Carla"}
+        ],
+        "appointments":[
+          {"time":"10:00","therapistId":"t1","client":"Cliente A"},
+          {"time":"10:30","therapistId":"t2","client":"Cliente B"}
+        ]
+      },
+      {
+        "id": "u2",
+        "name": "ROKUZEN - Zona Sul",
+        "posts": [
+          {"id":"p4","name":"Sala 2","type":"maca"},
+          {"id":"p5","name":"Cadeira Quick 2","type":"quick"}
+        ],
+        "therapists": [
+          {"id":"t4","name":"Daniela"},
+          {"id":"t5","name":"Eduardo"}
+        ],
+        "appointments":[
+          {"time":"11:00","therapistId":"t4","client":"Cliente C"}
+        ]
+      }
+    ]
+  }
+  

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Unidade - ROKUZEN</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+</head>
+<body>
+  <header class="hdr">
+    <a href="dashboard.html" class="btn ghost small">Voltar</a>
+    <h1 id="unitTitle">Unidade</h1>
+    <div id="userInfo"></div>
+  </header>
+
+  <main class="container">
+    <section id="scale">
+      <h2>Escala do dia</h2>
+      <div id="therapistsList" class="therapists-list"></div>
+    </section>
+
+    <section id="postsSection">
+      <h2>Postos de atendimento</h2>
+      <div id="postsGrid" class="posts-grid"></div>
+    </section>
+
+    <section id="agenda">
+      <h2>Próximos agendamentos</h2>
+      <ul id="nextAppointments"></ul>
+    </section>
+  </main>
+
+  <template id="postTemplate">
+    <div class="post-card">
+      <div class="post-header">
+        <span class="post-type"></span>
+        <strong class="post-name"></strong>
+      </div>
+      <div class="post-body">
+        <div class="status-dot"></div>
+        <div class="post-info">
+          <div class="assigned"></div>
+          <div class="timer"></div>
+        </div>
+      </div>
+      <div class="post-actions">
+        <button class="btn start">Iniciar Sessão</button>
+        <button class="btn danger end" disabled>Finalizar Sessão</button>
+        <button class="btn ghost maintenance">Manutenção</button>
+      </div>
+    </div>
+  </template>
+
+  <script src="../js/unidade.js"></script>
+</body>
+</html>

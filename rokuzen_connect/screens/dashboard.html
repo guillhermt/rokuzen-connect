@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dashboard - ROKUZEN</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+</head>
+<body>
+  <header class="hdr">
+    <h1>ROKUZEN - Unidades</h1>
+    <div id="headerActions"></div>
+  </header>
+
+  <main id="unitsArea" class="container"></main>
+
+  <template id="unitCardTemplate">
+    <article class="unit-card">
+      <h3 class="unit-name"></h3>
+      <div class="posts-grid"></div>
+      <div class="unit-footer">
+        <small class="next-appointments"></small>
+        <a class="btn small view-btn">Abrir Unidade</a>
+      </div>
+    </article>
+  </template>
+
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>

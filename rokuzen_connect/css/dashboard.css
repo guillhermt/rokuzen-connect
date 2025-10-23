@@ -1,0 +1,7 @@
+.unit-card .unit-footer{display:flex;align-items:center;justify-content:space-between;margin-top:.6rem}
+.posts-grid .post-card{min-height:120px}
+.therapist .role{font-size:.85rem;color:#666}
+.posts-grid .post-card .status-dot.green{background:var(--green)}
+.posts-grid .post-card .status-dot.red{background:var(--red)}
+.posts-grid .post-card .status-dot.yellow{background:var(--yellow)}
+.posts-grid .post-card .status-dot.gray{background:var(--gray)}

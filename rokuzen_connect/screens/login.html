@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login - ROKUZEN</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/login.css" />
+</head>
+<body>
+  <main class="login-center">
+    <h2>Login interno</h2>
+    <form id="loginForm">
+      <label>Tipo de usuário
+        <select id="role">
+          <option value="recepcao">Recepção</option>
+          <option value="terapeuta">Terapeuta</option>
+        </select>
+      </label>
+      <label>Nome (ou ID do terapeuta)
+        <input id="userName" placeholder="Ex: Ana" required />
+      </label>
+      <label>Unidade
+        <select id="unitSelect"></select>
+      </label>
+      <button class="btn" type="submit">Entrar</button>
+    </form>
+    <p><a href="../index.html">Voltar</a></p>
+  </main>
+  <script src="../js/auth.js"></script>
+</body>
+</html>
