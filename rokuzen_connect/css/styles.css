@@ -1,40 +1,181 @@
-:root{
-    --bg:#f6f7fb; --card:#ffffff; --text:#222; --accent:#9AB946;
-    --green:#2ecc71; --red:#e74c3c; --yellow:#f1c40f; --gray:#95a5a6;
-    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+
+
+:root {
+  --bg: #f6f7fb;
+  --card: #ffffff;
+  --text: #222;
+  --accent: #9AB946;
+  --green: #2ecc71;
+  --red: #e74c3c;
+  --yellow: #f1c40f;
+  --gray: #95a5a6;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+.container {
+  max-width: 1100px;
+  margin: 1rem auto;
+  padding: 1rem;
+}
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+  text-align: center;
+}
+.login-center {
+  max-width: 420px;
+  margin: 3rem auto;
+  padding: 1.2rem;
+  background: var(--card);
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(20, 20, 40, .06);
+}
+.hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background: transparent;
+}
+.btn {
+  background: var(--accent);
+  color: white;
+  padding: .5rem .8rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn.ghost {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+.btn.small {
+  padding: .3rem .6rem;
+  font-size: .9rem;
+}
+.btn.danger {
+  background: #c0392b; 
+}
+.unit-card {
+  background: var(--card);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(30, 30, 60, .05);
+  margin: .6rem 0;
+}
+.unit-card h3 {
+  margin: 0 0 .5rem 0;
+}
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: .8rem;
+}
+.therapists-list {
+  display: flex;
+  gap: .6rem;
+  flex-wrap: wrap;
+}
+.therapist {
+  background: #fff;
+  padding: .5rem;
+  border-radius: 6px;
+  border: 1px solid #eee;
+  min-width: 200px;
+}
+.post-card {
+  background: #fff;
+  padding: .6rem;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.post-body {
+  display: flex;
+  gap: .6rem;
+  align-items: center;
+}
+.status-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--green);
+}
+.post-info {
+  flex: 1;
+}
+.assigned {
+  font-size: .9rem;
+  color: #333;
+}
+.timer {
+  font-size: .85rem;
+  color: #666;
+}
+.post-actions {
+  display: flex;
+  gap: .4rem;
+  flex-wrap: wrap;
+}
+.view-btn {
+  margin-left: auto;
+}
+.next-appointments {
+  font-size: .9rem;
+  color: #333;
+}
+.small-note {
+  font-size: .85rem;
+  color: #555;
+}
+.badge {
+  padding: .2rem .4rem;
+  border-radius: 6px;
+  background: #eee;
+}
+legend {
+  font-weight: 600;
+  margin-top: 1rem;
+}
+.status-legend {
+  display: flex;
+  gap: .6rem;
+  align-items: center;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+}
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+@media (max-width: 640px) {
+  .posts-grid {
+    grid-template-columns: 1fr;
   }
-  *{box-sizing:border-box}
-  body{margin:0; background:var(--bg); color:var(--text); min-height:100vh}
-  .container{max-width:1100px;margin:1rem auto;padding:1rem}
-  .center{display:flex;flex-direction:column;align-items:center;justify-content:center;height:70vh;text-align:center}
-  .login-center{max-width:420px;margin:3rem auto;padding:1.2rem;background:var(--card);border-radius:8px;box-shadow:0 6px 20px rgba(20,20,40,.06)}
-  .hdr{display:flex;align-items:center;justify-content:space-between;padding:1rem;background:transparent}
-  .btn{background:var(--accent);color:white;padding:.5rem .8rem;border-radius:6px;border:none;cursor:pointer;text-decoration:none;display:inline-block}
-  .btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
-  .btn.small{padding:.3rem .6rem;font-size:.9rem}
-  .btn.danger{background:#c0392b}
-  .unit-card{background:var(--card);padding:1rem;border-radius:8px;box-shadow:0 6px 18px rgba(30,30,60,.05);margin:.6rem 0}
-  .unit-card h3{margin:0 0 .5rem 0}
-  .posts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem}
-  .therapists-list{display:flex;gap:.6rem;flex-wrap:wrap}
-  .therapist{background:#fff;padding:.5rem;border-radius:6px;border:1px solid #eee;min-width:200px}
-  .post-card{background:#fff;padding:.6rem;border-radius:8px;border:1px solid #eee;display:flex;flex-direction:column;gap:.6rem}
-  .post-header{display:flex;justify-content:space-between;align-items:center}
-  .post-body{display:flex;gap:.6rem;align-items:center}
-  .status-dot{width:14px;height:14px;border-radius:50%;background:var(--green)}
-  .post-info{flex:1}
-  .assigned{font-size:.9rem;color:#333}
-  .timer{font-size:.85rem;color:#666}
-  .post-actions{display:flex;gap:.4rem;flex-wrap:wrap}
-  .small-note{font-size:.85rem;color:#555}
-  .badge{padding:.2rem .4rem;border-radius:6px;background:#eee}
-  .view-btn{margin-left:auto}
-  .next-appointments{font-size:.9rem;color:#333}
-  legend{font-weight:600;margin-top:1rem}
-  .status-legend{display:flex;gap:.6rem;align-items:center}
-  .legend-item{display:flex;align-items:center;gap:.4rem}
-  .legend-dot{width:12px;height:12px;border-radius:50%}
-  @media (max-width:640px){
-    .posts-grid{grid-template-columns:1fr}
-  }
-  
+}
