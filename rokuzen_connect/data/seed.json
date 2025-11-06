@@ -4,8 +4,8 @@
           "id": "u1",
           "name": "Golden Square",
           "posts": [
-              {"id": "p1", "name": "Sala GS 1", "type": "Maca"},
-              {"id": "p2", "name": "Cadeira GS 1", "type": "Quick"}
+              {"id": "p1", "name": "Sala GS 1", "type": "Maca", "status": "free"},
+              {"id": "p2", "name": "Cadeira GS 1", "type": "Quick", "status": "free"}
           ],
           "therapists": [
               {"id": "t1", "name": "Fernanda"},
@@ -20,8 +20,8 @@
           "id": "u2",
           "name": "Mooca Plaza",
           "posts": [
-              {"id": "p3", "name": "Sala MP 1", "type": "Maca"},
-              {"id": "p4", "name": "Poltrona MP 1", "type": "Reflexo"}
+              {"id": "p3", "name": "Sala MP 1", "type": "Maca", "status": "free"},
+              {"id": "p4", "name": "Poltrona MP 1", "type": "Reflexo", "status": "free"}
           ],
           "therapists": [
               {"id": "t3", "name": "Helena"},
@@ -36,8 +36,8 @@
           "id": "u3",
           "name": "West Plaza",
           "posts": [
-              {"id": "p5", "name": "Cadeira WP 1", "type": "Quick"},
-              {"id": "p6", "name": "Sala WP 1", "type": "Maca"}
+              {"id": "p5", "name": "Cadeira WP 1", "type": "Quick", "status": "free"},
+              {"id": "p6", "name": "Sala WP 1", "type": "Maca", "status": "free"}
           ],
           "therapists": [
               {"id": "t5", "name": "Juliana"},
@@ -52,8 +52,8 @@
           "id": "u4",
           "name": "Grand Plaza",
           "posts": [
-              {"id": "p7", "name": "Poltrona GP 1", "type": "Reflexo"},
-              {"id": "p8", "name": "Sala GP 1", "type": "Maca"}
+              {"id": "p7", "name": "Poltrona GP 1", "type": "Reflexo", "status": "free"},
+              {"id": "p8", "name": "Sala GP 1", "type": "Maca", "status": "free"}
           ],
           "therapists": [
               {"id": "t7", "name": "Mariana"},
