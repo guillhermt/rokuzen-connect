@@ -1,181 +1,304 @@
-
-
 :root {
-  --bg: #f6f7fb;
-  --card: #ffffff;
-  --text: #222;
-  --accent: #9AB946;
-  --green: #2ecc71;
-  --red: #e74c3c;
-  --yellow: #f1c40f;
-  --gray: #95a5a6;
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    --bg: #f6f7fb;
+    --card: #ffffff;
+    --text: #222;
+    --accent: #9AB946;
+    --green: #2ecc71;
+    --red: #e74c3c;
+    --yellow: #f1c40f;
+    --gray: #95a5a6;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
-
 body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
 }
 .container {
-  max-width: 1100px;
-  margin: 1rem auto;
-  padding: 1rem;
+    max-width: 1100px;
+    margin: 1rem auto;
+    padding: 1rem;
 }
 .center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 70vh;
-  text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+    text-align: center;
 }
 .login-center {
-  max-width: 420px;
-  margin: 3rem auto;
-  padding: 1.2rem;
-  background: var(--card);
-  border-radius: 8px;
-  box-shadow: 0 6px 20px rgba(20, 20, 40, .06);
+    max-width: 420px;
+    margin: 3rem auto;
+    padding: 1.2rem;
+    background: var(--card);
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(20, 20, 40, .06);
 }
 .hdr {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem;
-  background: transparent;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: transparent;
+}
+.hdr h1 {
+    margin: 0;
+    font-size: 1.25rem;
+    justify-self: center;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#userInfo,
+#addTherapistBtn,
+#headerActions {
+    justify-self: end;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 .btn {
-  background: var(--accent);
-  color: white;
-  padding: .5rem .8rem;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
+    background: var(--accent);
+    color: white;
+    padding: .5rem .8rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
 }
 .btn.ghost {
-  background: transparent;
-  color: var(--accent);
-  border: 1px solid var(--accent);
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
 }
 .btn.small {
-  padding: .3rem .6rem;
-  font-size: .9rem;
+    padding: .3rem .6rem;
+    font-size: .9rem;
 }
 .btn.danger {
-  background: #c0392b; 
+    background: #c0392b;
+}
+.hdr .btn.small {
+    margin-left: .25rem;
 }
 .unit-card {
-  background: var(--card);
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 6px 18px rgba(30, 30, 60, .05);
-  margin: .6rem 0;
+    background: var(--card);
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(30, 30, 60, .05);
+    margin: .6rem 0;
 }
 .unit-card h3 {
-  margin: 0 0 .5rem 0;
+    margin: 0 0 .5rem 0;
 }
 .posts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: .8rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: .8rem;
 }
 .therapists-list {
-  display: flex;
-  gap: .6rem;
-  flex-wrap: wrap;
+    display: flex;
+    gap: .6rem;
+    flex-wrap: wrap;
 }
 .therapist {
-  background: #fff;
-  padding: .5rem;
-  border-radius: 6px;
-  border: 1px solid #eee;
-  min-width: 200px;
+    background: #fff;
+    padding: .5rem;
+    border-radius: 6px;
+    border: 1px solid #eee;
+    min-width: 200px;
 }
 .post-card {
-  background: #fff;
-  padding: .6rem;
-  border-radius: 8px;
-  border: 1px solid #eee;
-  display: flex;
-  flex-direction: column;
-  gap: .6rem;
+    background: #fff;
+    padding: .6rem;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    min-height: 92px;
+    box-sizing: border-box;
 }
 .post-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: .16rem;
+    align-items: flex-start;
+    min-height: 2.4rem;
+}
+.post-type {
+    font-size: .78rem;
+    color: var(--accent);
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.post-name {
+    font-size: 0.98rem;
+    line-height: 1.1;
+    display: block;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    margin: 0;
 }
 .post-body {
-  display: flex;
-  gap: .6rem;
-  align-items: center;
+    display: flex;
+    gap: .6rem;
+    align-items: center;
+    min-height: 36px;
 }
 .status-dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--green);
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    flex: 0 0 14px;
+    margin-top: 2px;
 }
 .post-info {
-  flex: 1;
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: .15rem;
 }
 .assigned {
-  font-size: .9rem;
-  color: #333;
+    font-size: .9rem;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .timer {
-  font-size: .85rem;
-  color: #666;
+    font-size: .85rem;
+    color: #666;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .post-actions {
-  display: flex;
-  gap: .4rem;
-  flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    margin-top: auto;
+}
+.post-actions .btn {
+    width: 100%;
+    padding: .6rem .8rem;
+    font-size: .9rem;
+    border-radius: 6px;
+    box-sizing: border-box;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.post-actions .btn.start {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+}
+.post-actions .btn.danger {
+    background: #c0392b;
+    color: #fff;
+    border: none;
+}
+.post-actions .btn.ghost.maintenance {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
 }
 .view-btn {
-  margin-left: auto;
+    margin-left: auto;
 }
 .next-appointments {
-  font-size: .9rem;
-  color: #333;
+    font-size: .9rem;
+    color: #333;
 }
 .small-note {
-  font-size: .85rem;
-  color: #555;
+    font-size: .85rem;
+    color: #555;
 }
 .badge {
-  padding: .2rem .4rem;
-  border-radius: 6px;
-  background: #eee;
+    padding: .25rem .5rem;
+    border-radius: 6px;
+    background: #f0f0f0;
+    color: var(--text);
+    font-weight: 600;
+    display: inline-block;
+    line-height: 1;
+    white-space: nowrap;
 }
 legend {
-  font-weight: 600;
-  margin-top: 1rem;
+    font-weight: 600;
+    margin-top: 1rem;
 }
 .status-legend {
-  display: flex;
-  gap: .6rem;
-  align-items: center;
+    display: flex;
+    gap: .6rem;
+    align-items: center;
 }
 .legend-item {
-  display: flex;
-  align-items: center;
-  gap: .4rem;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
 }
 .legend-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+.header-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-self: end;
+}
+#addTherapistBtn {
+    background: var(--accent);
+    color: white;
+    padding: .35rem .6rem;
+    border-radius: 6px;
+    border: none;
+    font-size: .9rem;
+    cursor: pointer;
+}
+#addTherapistBtn.ghost {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
 }
 @media (max-width: 640px) {
-  .posts-grid {
-    grid-template-columns: 1fr;
-  }
+    .hdr {
+        grid-template-columns: auto 1fr;
+        grid-auto-rows: auto;
+        gap: 0.5rem;
+    }
+    .hdr h1 {
+        justify-self: start;
+        text-align: left;
+    }
+    #userInfo,
+    #addTherapistBtn {
+        justify-self: end;
+    }
+    .posts-grid {
+        grid-template-columns: 1fr;
+    }
+    .post-card {
+        min-height: auto;
+    }
+    .header-actions {
+        gap: .35rem;
+        flex-direction: column;
+        align-items: flex-end;
+    }
 }

@@ -4,16 +4,16 @@ const rokData = {
           id: "u1",
           name: "Golden Square",
           posts: [
-              { id: "p1", name: "Quick 1º piso 1", type: "Quick" },
-              { id: "p2", name: "Quick 1º piso 2", type: "Quick" },
-              { id: "p3", name: "Quick 1º piso 3", type: "Quick" },
-              { id: "p4", name: "Quick 2º piso", type: "Quick" },
-              { id: "p5", name: "Reflexo 1", type: "Reflexo" },
-              { id: "p6", name: "Reflexo 2", type: "Reflexo" },
-              { id: "p7", name: "Sala Maca 1º piso 1", type: "Maca" },
-              { id: "p8", name: "Sala Maca 1º piso 2", type: "Maca" },
-              { id: "p9", name: "Sala Maca 2º piso 1", type: "Maca" },
-              { id: "p10", name: "Sala Maca 2º piso 2", type: "Maca" }
+              { id: "p1", name: "Quick 1º piso 1" },
+              { id: "p2", name: "Quick 1º piso 2" },
+              { id: "p3", name: "Quick 1º piso 3" },
+              { id: "p4", name: "Quick 2º piso" },
+              { id: "p5", name: "Reflexo 1"},
+              { id: "p6", name: "Reflexo 2" },
+              { id: "p7", name: "Sala Maca 1º piso 1" },
+              { id: "p8", name: "Sala Maca 1º piso 2" },
+              { id: "p9", name: "Sala Maca 2º piso 1" },
+              { id: "p10", name: "Sala Maca 2º piso 2" }
           ],
           therapists: [
               { id: "t1", name: "Fernanda" },
@@ -28,16 +28,16 @@ const rokData = {
           id: "u2",
           name: "Mooca Plaza",
           posts: [
-              { id: "p11", name: "Quick 1", type: "Quick" },
-              { id: "p12", name: "Quick 2", type: "Quick" },
-              { id: "p13", name: "Quick 3", type: "Quick" },
-              { id: "p14", name: "Quick 4", type: "Quick" },
-              { id: "p15", name: "Reflexo 1", type: "Reflexo" },
-              { id: "p16", name: "Reflexo 2", type: "Reflexo" },
-              { id: "p17", name: "Reflexo 3", type: "Reflexo" },
-              { id: "p18", name: "Sala Maca 1", type: "Maca" },
-              { id: "p19", name: "Sala Maca 2", type: "Maca" },
-              { id: "p20", name: "Sala Maca 3", type: "Maca" }
+              { id: "p11", name: "Quick 1"},
+              { id: "p12", name: "Quick 2"},
+              { id: "p13", name: "Quick 3" },
+              { id: "p14", name: "Quick 4" },
+              { id: "p15", name: "Reflexo 1" },
+              { id: "p16", name: "Reflexo 2" },
+              { id: "p17", name: "Reflexo 3" },
+              { id: "p18", name: "Sala Maca 1" },
+              { id: "p19", name: "Sala Maca 2"},
+              { id: "p20", name: "Sala Maca 3" }
           ],
           therapists: [
               { id: "t3", name: "Helena" },
@@ -52,14 +52,14 @@ const rokData = {
           id: "u3",
           name: "West Plaza",
           posts: [
-              { id: "p21", name: "Quick 1", type: "Quick" },
-              { id: "p22", name: "Quick 2", type: "Quick" },
-              { id: "p23", name: "Quick 3", type: "Quick" },
-              { id: "p24", name: "Reflexo 1", type: "Reflexo" },
-              { id: "p25", name: "Reflexo 2", type: "Reflexo" },
-              { id: "p26", name: "Sala Maca 1", type: "Maca" },
-              { id: "p27", name: "Sala Maca 2", type: "Maca" },
-              { id: "p28", name: "Sala Maca 3", type: "Maca" }
+              { id: "p21", name: "Quick 1" },
+              { id: "p22", name: "Quick 2" },
+              { id: "p23", name: "Quick 3" },
+              { id: "p24", name: "Reflexo 1" },
+              { id: "p25", name: "Reflexo 2" },
+              { id: "p26", name: "Sala Maca 1" },
+              { id: "p27", name: "Sala Maca 2" },
+              { id: "p28", name: "Sala Maca 3" }
           ],
           therapists: [
               { id: "t5", name: "Juliana" },
@@ -74,15 +74,15 @@ const rokData = {
           id: "u4",
           name: "Grand Plaza",
           posts: [
-              { id: "p29", name: "Quick 1", type: "Quick" },
-              { id: "p30", name: "Quick 2", type: "Quick" },
-              { id: "p31", name: "Quick 3", type: "Quick" },
-              { id: "p32", name: "Reflexo 1", type: "Reflexo" },
-              { id: "p33", name: "Reflexo 2", type: "Reflexo" },
-              { id: "p34", name: "Sala Maca 1", type: "Maca" },
-              { id: "p35", name: "Sala Maca 2", type: "Maca" },
-              { id: "p36", name: "Sala Maca 3", type: "Maca" },
-              { id: "p37", name: "Sala Maca 4", type: "Maca" }
+              { id: "p29", name: "Quick 1" },
+              { id: "p30", name: "Quick 2" },
+              { id: "p31", name: "Quick 3" },
+              { id: "p32", name: "Reflexo 1" },
+              { id: "p33", name: "Reflexo 2" },
+              { id: "p34", name: "Sala Maca 1" },
+              { id: "p35", name: "Sala Maca 2" },
+              { id: "p36", name: "Sala Maca 3" },
+              { id: "p37", name: "Sala Maca 4" }
           ],
           therapists: [
               { id: "t7", name: "Mariana" },
