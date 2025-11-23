@@ -1,0 +1,19 @@
+body {
+  background-color: #f4f6f9;
+}
+
+h2 {
+  font-weight: bold;
+}
+
+.table {
+  background: #fff;
+}
+
+.btn-primary {
+  border-radius: 30px;
+}
+
+.modal-content {
+  border-radius: 15px;
+}

@@ -1,80 +1,86 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const data = JSON.parse(localStorage.getItem('rok_data') || '{}');
-  const units = data.units || [];
-  const unitSelect = document.getElementById('unitSelect');
-  if (unitSelect) {
-    unitSelect.innerHTML = '';
-    units.forEach(u => {
-      const opt = document.createElement('option');
-      opt.value = u.id;
-      opt.textContent = u.name;
-      unitSelect.appendChild(opt);
-    });
+const API_LOGIN = "http://localhost:3000/login";
+
+// ==================== TOKEN GLOBAL ====================
+function getToken() {
+  return localStorage.getItem("token");
+}
+
+function logout() {
+  localStorage.removeItem("token");
+  localStorage.removeItem("usuario");
+  window.location.href = "../screens/login.html";
+}
+
+// ==================== LOGIN ====================
+const form = document.getElementById("loginForm");
+
+// Cria ou atualiza mensagem visual
+function exibirMensagem(tipo, texto) {
+  let alerta = document.getElementById("alertaLogin");
+
+  if (!alerta) {
+    alerta = document.createElement("div");
+    alerta.id = "alertaLogin";
+    alerta.className = "alert mt-3";
+    form.appendChild(alerta);
   }
 
-  const loginForm = document.getElementById('loginForm');
-  if (loginForm) {
-    loginForm.addEventListener('submit', (e) => {
-      e.preventDefault();
+  alerta.className = `alert alert-${tipo}`;
+  alerta.innerText = texto;
+}
 
-      const roleEl = document.getElementById('role');
-      const nameEl = document.getElementById('userName');
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-      const role = roleEl ? roleEl.value : 'recepcao';
-      const userName = nameEl ? nameEl.value.trim() : '';
-      const unitId = unitSelect ? unitSelect.value : (units[0] && units[0].id) || '';
+  const email = document.getElementById("userName").value;
+  const senha = document.getElementById("senha").value;
 
-      if (!userName) {
-        alert('Informe o nome');
-        return;
+  exibirMensagem("info", "Autenticando...");
+
+  try {
+    const response = await fetch(API_LOGIN, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, senha }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      exibirMensagem("danger", data.erro || "E-mail ou senha inválidos.");
+      return;
+    }
+
+    // Salva token
+    localStorage.setItem("token", data.token);
+
+    // Decodifica token
+    const payload = JSON.parse(atob(data.token.split(".")[1]));
+    localStorage.setItem("usuario", JSON.stringify(payload));
+
+    exibirMensagem("success", "Login realizado com sucesso! Redirecionando...");
+
+    // Redirecionamento com delay visual
+    setTimeout(() => {
+      switch (payload.tipo_colaborador) {
+        case 1:
+          window.location.href = "admindashboard.html";
+          break;
+        case 2:
+          window.location.href = "recepcao.html";
+          break;
+        case 3:
+          window.location.href = "terapeuta.html";
+          break;
+        default:
+          exibirMensagem("warning", "Tipo de usuário não reconhecido.");
       }
-
-      const user = {
-        role,
-        name: userName,
-        unitId,
-        id: 'u_' + Date.now()
-      };
-
-      sessionStorage.setItem('rok_user', JSON.stringify(user));
-      location.href = 'dashboard.html';
-    });
-    return;
+    }, 800);
+  } catch (error) {
+    console.error(error);
+    exibirMensagem(
+      "danger",
+      "Erro ao conectar com o servidor. Verifique sua internet ou backend."
+    );
   }
-  const user = JSON.parse(sessionStorage.getItem('rok_user') || 'null');
-  if (!user) {
-    location.href = 'login.html';
-    return;
-  }
-  const headerActions = document.getElementById('headerActions');
-  if (headerActions) {
-    headerActions.innerHTML = `
-      <span class="badge">${(user.role || '').toUpperCase()}: ${user.name}</span>
-      <a href="#" class="btn ghost small" id="logoutHeader">Sair</a>
-    `;
-    const logoutHeader = document.getElementById('logoutHeader');
-    if (logoutHeader) {
-      logoutHeader.addEventListener('click', (ev) => {
-        ev.preventDefault();
-        sessionStorage.removeItem('rok_user');
-        location.href = 'login.html';
-      });
-    }
-  }
-  const userInfo = document.getElementById('userInfo');
-  if (userInfo) {
-    userInfo.innerHTML = `
-      <span class="badge">${(user.role || '').toUpperCase()}: ${user.name}</span>
-      <a href="#" class="btn ghost small" id="logoutUnit">Sair</a>
-    `;
-    const logoutUnit = document.getElementById('logoutUnit');
-    if (logoutUnit) {
-      logoutUnit.addEventListener('click', (ev) => {
-        ev.preventDefault();
-        sessionStorage.removeItem('rok_user');
-        location.href = 'login.html';
-      });
-    }
-  }
-  window.ROK_USER = user;
 });
