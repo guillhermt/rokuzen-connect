@@ -9,7 +9,7 @@ function setupHeader() {
   const user = JSON.parse(sessionStorage.getItem('rok_user') || 'null');
 
   if (user) {
-    headerActions.innerHTML = `<span class="badge">${user.role.toUpperCase()}: ${user.name}</span> <a class="btn ghost small" href="dashboard.html" id="logout">Sair</a>`;
+    headerActions.innerHTML = `<span class="badge bg-success">${user.role.toUpperCase()}: ${user.name}</span> <a class="btn btn-outline-success btn-sm" href="#" id="logout">Sair</a>`;
 
     const logoutButton = document.getElementById('logout');
     logoutButton.addEventListener('click', (e) => {
@@ -21,7 +21,7 @@ function setupHeader() {
 }
 
 function renderUnits() {
-  const root = document.getElementById('unitsArea');
+  const root = document.getElementById('unitsGrid');
   const template = document.getElementById('unitCardTemplate');
 
   if (!root || !template) return;
@@ -33,7 +33,7 @@ function renderUnits() {
 
   units.forEach(unit => {
     const node = template.content.cloneNode(true);
-    const postsGrid = node.querySelector('.posts-grid');
+    const postsGrid = node.querySelector('[data-posts]');
 
     node.querySelector('.unit-name').textContent = unit.name;
 
@@ -48,9 +48,16 @@ function renderUnits() {
       ? `Próx: ${nextAppointment.time} - ${nextAppointment.client}`
       : 'Sem agendamentos';
 
+    // CORREÇÃO SIMPLES: Usar caminho relativo correto
     const viewButton = node.querySelector('.view-btn');
-    viewButton.addEventListener('click', () => {
-      location.href = `unidade.html?unit=${unit.id}`;
+    
+    // Se o dashboard está em /screens/, então unidade.html está na mesma pasta
+    viewButton.href = `unidade.html?unit=${unit.id}`;
+    
+    // Event listener para garantir a navegação
+    viewButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.location.href = `unidade.html?unit=${unit.id}`;
     });
 
     root.appendChild(node);
@@ -68,22 +75,32 @@ function setupStorageListener() {
 function createMiniPostElement(post) {
   const statusColorMap = {
     'free': 'green',
-    'occupied': 'red',
+    'occupied': 'red', 
     'interval': 'yellow',
   };
   const color = statusColorMap[post.status] || 'gray';
 
-  const miniCard = document.createElement('div');
-  miniCard.className = 'post-card';
+  const template = document.getElementById('postInUnitTemplate');
+  const node = template.content.cloneNode(true);
 
-  const dot = document.createElement('div');
-  dot.className = `status-dot ${color}`;
-  dot.style.marginBottom = '.4rem';
-  miniCard.appendChild(dot);
+  node.querySelector('.post-type').textContent = post.type || 'Posto';
+  node.querySelector('.post-name').textContent = post.name;
+  node.querySelector('.status-dot').className = `status-dot ${color}`;
+  
+  const assigned = node.querySelector('.assigned');
+  const timer = node.querySelector('.timer');
+  
+  if (post.assigned && post.assigned !== 'undefined') {
+    assigned.textContent = post.assigned;
+  } else {
+    assigned.style.display = 'none';
+  }
+  
+  if (post.timer && post.timer !== 'undefined') {
+    timer.textContent = post.timer;
+  } else {
+    timer.style.display = 'none';
+  }
 
-  const title = document.createElement('div');
-  title.innerHTML = `<strong>${post.name}</strong><div class="small-note">${post.type}</div>`;
-  miniCard.appendChild(title);
-
-  return miniCard;
+  return node;
 }
