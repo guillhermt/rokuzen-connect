@@ -1,0 +1,34 @@
+{
+  "colaboradores": [
+    {
+      "id": "1",
+      "nome_colaborador": "Admin",
+      "email": "admin@rokuzen.com",
+      "tipo_colaborador": 1
+    },
+    {
+      "id": "efcb",
+      "nome_colaborador": "guilherme",
+      "email": "guilhermekge@gmail.com",
+      "telefone": "11",
+      "tipo_colaborador": 3
+    }
+  ],
+  "unidades": [
+    {
+      "id": "b05f",
+      "nome_unidade": "ss",
+      "endereco": "ss",
+      "telefone": "2",
+      "ativo": "S"
+    },
+    {
+      "id": "b6d7",
+      "nome_unidade": "aaa",
+      "endereco": "aaa",
+      "telefone": "aaa",
+      "ativo": "S"
+    }
+  ],
+  "horarios": []
+}

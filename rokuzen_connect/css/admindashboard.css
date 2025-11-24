@@ -1,19 +1,40 @@
-body {
-  background-color: #f4f6f9;
+/* ============== SELEÇÃO DE UNIDADE — CLEAN E PERFEITO ============== */
+#tabelaUnidades tr {
+  transition: all 0.25s ease;
+  cursor: pointer;
+  position: relative;
 }
 
-h2 {
-  font-weight: bold;
+#tabelaUnidades tr:hover {
+  background-color: #f0fdf4 !important;
 }
 
-.table {
-  background: #fff;
+/* A SELEÇÃO PRINCIPAL — LIMPA E DISCRETA */
+.unidade-selecionada {
+  background-color: #ecfdf5 !important;
+  border-left: 6px solid #10b981 !important;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
 }
 
-.btn-primary {
-  border-radius: 30px;
+/* Garante que os botões NUNCA fiquem brancos */
+.unidade-selecionada .btn {
+  color: inherit !important;
 }
 
-.modal-content {
-  border-radius: 15px;
+.unidade-selecionada .btn-warning {
+  background-color: #f59e0b !important;
+  border-color: #f59e0b !important;
+  color: white !important;
+}
+
+.unidade-selecionada .btn-danger {
+  background-color: #dc2626 !important;
+  border-color: #dc2626 !important;
+  color: white !important;
+}
+
+/* Remove qualquer resquício do ::before antigo que tava quebrando tudo */
+.unidade-selecionada::before {
+  display: none !important;
 }

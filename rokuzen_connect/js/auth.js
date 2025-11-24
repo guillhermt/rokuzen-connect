@@ -67,7 +67,7 @@ form.addEventListener("submit", async (e) => {
           window.location.href = "admindashboard.html";
           break;
         case 2:
-          window.location.href = "recepcao.html";
+          window.location.href = "recepcao-selecao.html";
           break;
         case 3:
           window.location.href = "terapeuta.html";

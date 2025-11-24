@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Recepção • ROKUZEN</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+  <style>
+    :root {
+      --rokuzen: #a3c441;
+      --rokuzen-dark: #8fb23a;
+      --rokuzen-light: #d4ed9f;
+    }
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f0 100%);
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+    }
+    .logo {
+      font-size: 4.5rem;
+      font-weight: 900;
+    }
+    .card-unidade {
+      border: none;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+      transition: all 0.4s ease;
+      cursor: pointer;
+    }
+    .card-unidade:hover {
+      transform: translateY(-15px) scale(1.03);
+      box-shadow: 0 25px 60px rgba(163,196,65,0.4);
+    }
+    .card-header-custom {
+      background: linear-gradient(135deg, var(--rokuzen), var(--rokuzen-dark));
+      color: white;
+      padding: 2.5rem 1rem;
+      text-align: center;
+    }
+    .card-header-custom h2 {
+      margin: 0;
+      font-weight: 800;
+      font-size: 2rem;
+    }
+    .card-body {
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    .btn-entrar {
+      background: white;
+      color: var(--rokuzen-dark);
+      border: 3px solid var(--rokuzen);
+      border-radius: 50px;
+      padding: 1rem 3rem;
+      font-weight: 700;
+      font-size: 1.3rem;
+      transition: all 0.3s;
+    }
+    .btn-entrar:hover {
+      background: var(--rokuzen);
+      color: white;
+      transform: scale(1.05);
+    }
+    .footer-sair {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  </style>
+</head>
+<body class="d-flex align-items-center justify-content-center min-vh-100">
+
+  <div class="container">
+    <!-- LOGO -->
+    <div class="text-center mb-5">
+      <h1 class="logo">
+        <span style="color: #fff;">ROKU</span><span style="color: var(--rokuzen-light);">ZEN</span>
+      </h1>
+      <p class="lead text-muted fs-4">Selecione a unidade em que você está agora</p>
+    </div>
+
+    <!-- LISTA DE UNIDADES -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5 justify-content-center" id="listaUnidades">
+      <div class="col-12 text-center">
+        <div class="spinner-border text-success" style="width:4rem;height:4rem;" role="status">
+          <span class="visually-hidden">Carregando...</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTÃO SAIR -->
+    <div class="text-center mt-5 footer-sair">
+      <button class="btn btn-outline-danger px-5 py-3 fw-bold" onclick="logout()">
+        <i class="bi bi-box-arrow-left me-2"></i> Sair do Sistema
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const API = "http://localhost:3000";
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("rok_user") || "{}");
+
+    // Verifica se é recepcionista
+    if (!token || user.tipo_colaborador != 2) {
+      alert("Acesso restrito à recepção");
+      location.href = "../screens/login.html";
+    }
+
+    async function carregarUnidades() {
+      try {
+        const res = await fetch(`${API}/unidades`, {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        if (!res.ok) throw new Error("Erro na autenticação");
+
+        const unidades = await res.json();
+        const ativas = unidades.filter(u => u.ativo === 'S');
+
+        const container = document.getElementById("listaUnidades");
+
+        if (ativas.length === 0) {
+          container.innerHTML = `
+            <div class="col-12 text-center py-5">
+              <i class="bi bi-building-x display-1 text-muted"></i>
+              <h3 class="mt-4 text-muted">Nenhuma unidade ativa no momento</h3>
+            </div>`;
+          return;
+        }
+
+        container.innerHTML = ativas.map(u => `
+          <div class="col">
+            <div class="card-unidade h-100" onclick="entrarNaUnidade(${u.unidade_id}, '${u.nome_unidade.replace(/'/g, "\\'")}')">
+              <div class="card-header-custom">
+                <h2>${u.nome_unidade}</h2>
+              </div>
+              <div class="card-body">
+                <i class="bi bi-geo-alt-fill display-1 text-success opacity-30"></i>
+                <p class="mt-4 text-muted fs-5">${u.endereco || "Endereço não informado"}</p>
+                <button class="btn-entrar mt-4">
+                  <i class="bi bi-arrow-right-circle-fill me-2"></i>
+                  ENTRAR NESTA UNIDADE
+                </button>
+              </div>
+            </div>
+          </div>
+        `).join("");
+
+      } catch (err) {
+        console.error(err);
+        document.getElementById("listaUnidades").innerHTML = `
+          <div class="col-12 text-center py-5">
+            <i class="bi bi-wifi-off display-1 text-danger"></i>
+            <h3 class="mt-4">Erro ao conectar</h3>
+            <button class="btn btn-danger mt-3" onclick="location.reload()">Tentar Novamente</button>
+          </div>`;
+      }
+    }
+
+    function entrarNaUnidade(id, nome) {
+      localStorage.setItem("unidade_atual_id", id);
+      localStorage.setItem("unidade_atual_nome", nome);
+      location.href = "recepcao-controle.html";
+    }
+
+    function logout() {
+      if (confirm("Tem certeza que deseja sair?")) {
+        localStorage.clear();
+        location.href = "../screens/login.html";
+      }
+    }
+
+    // Carrega ao abrir a página
+    carregarUnidades();
+  </script>
+</body>
+</html>
