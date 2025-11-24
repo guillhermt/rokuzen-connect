@@ -15,7 +15,7 @@ O objetivo do projeto foi desenvolver uma aplicação web para uso interno que p
 * Visualizar em tempo real a ocupação dos postos de trabalho (salas de maca, cadeiras de quick massage, poltronas).
 * Exibir as escalas dos terapeutas e seu status (disponível/ocupado).
 * Controlar o início e o fim de cada sessão de massagem.
-* Cadastrar clientes para agendamento.
+* Permitir agendamento de clientes.
 * Gerenciar diferentes perfis de usuário com permissões distintas.
 
 Com isso, a solução busca otimizar a gestão, reduzir conflitos, minimizar o tempo de espera e melhorar a eficiência operacional.
@@ -24,5 +24,5 @@ Com isso, a solução busca otimizar a gestão, reduzir conflitos, minimizar o t
 
 O projeto foi desenvolvido pelos dois seguintes alunos do Instituto Mauá de Tecnologia (IMT):
 
-* Breno Garavelo Terada (25.01627-0)
-* Guilherme Tomaz Gomes (24.00520-7)
+* Breno Garavelo Terada (25.01627-0) -  BT-CPU
+* Guilherme Tomaz Gomes (24.00520-7) - guillhermt
