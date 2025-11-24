@@ -7,7 +7,7 @@ function getToken() {
 
 function logout() {
   localStorage.removeItem("token");
-  localStorage.removeItem("usuario");
+  localStorage.removeItem("rok_user");
   window.location.href = "../screens/login.html";
 }
 
@@ -56,7 +56,7 @@ form.addEventListener("submit", async (e) => {
 
     // Decodifica token
     const payload = JSON.parse(atob(data.token.split(".")[1]));
-    localStorage.setItem("usuario", JSON.stringify(payload));
+    localStorage.setItem("rok_user", JSON.stringify(payload));
 
     exibirMensagem("success", "Login realizado com sucesso! Redirecionando...");
 
@@ -84,3 +84,11 @@ form.addEventListener("submit", async (e) => {
     );
   }
 });
+
+const clientLoginBtn = document.getElementById("clientLoginBtn");
+
+if (clientLoginBtn) {
+  clientLoginBtn.addEventListener("click", () => {
+    window.location.href = "dashboard.html";
+  });
+}

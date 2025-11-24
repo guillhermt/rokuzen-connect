@@ -1,269 +1,408 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Unidade - ROKUZEN</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    :root {
-      --primary-color: #A3C441;
-      --primary-hover: #8FB23A;
-    }
-    .status-dot { 
-      width: 16px; 
-      height: 16px; 
-      border-radius: 50%; 
-      flex-shrink: 0; 
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
-      display: inline-block; 
-      vertical-align: middle; 
-    }
-    .status-dot.green { 
-      background: var(--primary-color); 
-    }
-    .status-dot.red { 
-      background: #e74c3c; 
-    }
-    .status-dot.yellow { 
-      background: #f1c40f; 
-    }
-    .status-dot.gray { 
-      background: #dee2e6; 
-    }
-    .post-card { 
-      min-height: 140px; 
-      transition: box-shadow 0.3s ease, transform 0.3s ease; 
-      border: none; 
-    }
-    .post-card:hover { 
-      box-shadow: 0 8px 32px rgba(0,0,0,0.08) !important; 
-      transform: translateY(-4px); 
-    }
-    .toggle-switch { 
-      position: relative; 
-      width: 60px; 
-      height: 34px; 
-      background: #dee2e6; 
-      border-radius: 34px; 
-      transition: background 0.3s ease; 
-      cursor: pointer; 
-    }
-    .toggle-switch::after { 
-      content: ''; 
-      position: absolute; 
-      top: 4px; 
-      left: 4px; 
-      width: 26px; 
-      height: 26px; 
-      background: white; 
-      border-radius: 50%; 
-      transition: transform 0.3s ease; 
-    }
-    input[type="checkbox"]:checked + .toggle-switch { 
-      background: var(--primary-color); 
-    }
-    input[type="checkbox"]:checked + .toggle-switch::after { 
-      transform: translateX(26px); 
-    }
-    .client-welcome { 
-      background: linear-gradient(135deg, var(--primary-color), var(--primary-hover)); 
-      color: white; 
-      border: none; 
-    }
-    .client-room .btn { 
-      background: linear-gradient(135deg, var(--primary-color), var(--primary-hover)); 
-      border: none; 
-    }
-    .client-room .btn:hover { 
-      transform: translateY(-2px); 
-    }
-    .role-view { 
-      animation: fadeIn 0.5s ease-in; 
-    }
-    @keyframes fadeIn { 
-      from { opacity: 0; transform: translateY(10px); } 
-      to { opacity: 1; transform: translateY(0); } 
-    }
-    .cursor-pointer { 
-      cursor: pointer; 
-    }
-    .btn-success { 
-      background: var(--primary-color); 
-      border: none; 
-    }
-    .btn-success:hover { 
-      background: var(--primary-hover); 
-      transform: translateY(-1px); 
-    }
-    .btn-outline-success { 
-      color: var(--primary-color); 
-      border-color: var(--primary-color); 
-    }
-    .btn-outline-success:hover { 
-      background: var(--primary-color); 
-      border-color: var(--primary-color); 
-      color: white; 
-      transform: translateY(-1px); 
-    }
-    .btn-danger { 
-      background: linear-gradient(135deg, #e74c3c, #c0392b); 
-      border: none; 
-    }
-    .btn-danger:hover { 
-      background: linear-gradient(135deg, #d62c1a, #a93226); 
-      transform: translateY(-1px); 
-    }
-    .therapist-item { 
-      min-width: 200px; 
-    }
-    .post-type { 
-      color: var(--primary-color); 
-    }
-    .text-success { 
-      color: var(--primary-color) !important; 
-    }
-  </style>
-</head>
-<body class="bg-light">
-  <header class="bg-white shadow-sm py-3">
-    <div class="container d-flex align-items-center justify-content-between">
-      <a href="dashboard.html" class="btn btn-outline-success btn-sm">Voltar</a>
-      <h1 class="h4 mb-0 fw-bold text-center flex-grow-1" id="unitTitle">Unidade</h1>
-      <div id="userInfo" class="d-flex align-items-center"></div>
-      <button id="addTherapistBtn" class="btn btn-success btn-sm d-none">Adicionar Terapeuta</button>
-    </div>
-  </header>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Unidade - ROKUZEN</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-color: #a3c441;
+        --primary-hover: #8fb23a;
+      }
+      .status-dot {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .status-dot.green {
+        background: var(--primary-color);
+      }
+      .status-dot.red {
+        background: #e74c3c;
+      }
+      .status-dot.yellow {
+        background: #f1c40f;
+      }
+      .status-dot.gray {
+        background: #dee2e6;
+      }
+      .post-card {
+        min-height: 140px;
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
+        border: none;
+      }
+      .post-card:hover {
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08) !important;
+        transform: translateY(-4px);
+      }
+      .toggle-switch {
+        position: relative;
+        width: 60px;
+        height: 34px;
+        background: #dee2e6;
+        border-radius: 34px;
+        transition: background 0.3s ease;
+        cursor: pointer;
+      }
+      .toggle-switch::after {
+        content: "";
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        width: 26px;
+        height: 26px;
+        background: white;
+        border-radius: 50%;
+        transition: transform 0.3s ease;
+      }
+      input[type="checkbox"]:checked + .toggle-switch {
+        background: var(--primary-color);
+      }
+      input[type="checkbox"]:checked + .toggle-switch::after {
+        transform: translateX(26px);
+      }
+      .client-welcome {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--primary-hover)
+        );
+        color: white;
+        border: none;
+      }
+      .client-room .btn {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--primary-hover)
+        );
+        border: none;
+      }
+      .client-room .btn:hover {
+        transform: translateY(-2px);
+      }
+      .role-view {
+        animation: fadeIn 0.5s ease-in;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .cursor-pointer {
+        cursor: pointer;
+      }
+      .btn-success {
+        background: var(--primary-color);
+        border: none;
+      }
+      .btn-success:hover {
+        background: var(--primary-hover);
+        transform: translateY(-1px);
+      }
+      .btn-outline-success {
+        color: var(--primary-color);
+        border-color: var(--primary-color);
+      }
+      .btn-outline-success:hover {
+        background: var(--primary-color);
+        border-color: var(--primary-color);
+        color: white;
+        transform: translateY(-1px);
+      }
+      .btn-danger {
+        background: linear-gradient(135deg, #e74c3c, #c0392b);
+        border: none;
+      }
+      .btn-danger:hover {
+        background: linear-gradient(135deg, #d62c1a, #a93226);
+        transform: translateY(-1px);
+      }
+      .therapist-item {
+        min-width: 200px;
+      }
+      .post-type {
+        color: var(--primary-color);
+      }
+      .text-success {
+        color: var(--primary-color) !important;
+      }
+    </style>
+  </head>
 
-  <main class="container py-4">
-    <!-- View for Reception -->
-    <section id="receptionView" class="role-view">
-      <section id="scale" class="mb-5">
-        <h2 class="h3 fw-bold mb-3">Escala do dia</h2>
-        <div id="therapistsList" class="d-flex gap-3 flex-wrap"></div>
-      </section>
-
-      <section id="postsSection" class="mb-5">
-        <h2 class="h3 fw-bold mb-3">Postos de atendimento</h2>
-        <div id="postsGrid" class="row g-4"></div>
-      </section>
-
-      <section id="agenda">
-        <h2 class="h3 fw-bold mb-3">Próximos agendamentos</h2>
-        <ul id="nextAppointments" class="list-group list-group-flush"></ul>
-      </section>
-    </section>
-
-    <!-- View for Therapist -->
-    <section id="therapistView" class="role-view" style="display: none;">
-      <div class="card shadow-sm mb-4 p-4 text-center">
-        <h2 class="h3 fw-bold mb-4">Minha Disponibilidade</h2>
-        <div class="availability-toggle d-flex flex-column align-items-center gap-3">
-          <label class="d-flex align-items-center gap-3 fw-semibold cursor-pointer">
-            <input type="checkbox" id="availabilityToggle" class="d-none" checked>
-            <span class="toggle-switch"></span>
-            <span>Disponível no momento</span>
-          </label>
-          <p class="text-muted mb-0">Ative para receber agendamentos.</p>
-        </div>
-      </div>
-      
-      <section id="mySchedule" class="mb-5">
-        <h2 class="h3 fw-bold mb-3">Minha Agenda Hoje</h2>
-        <ul id="therapistAppointments" class="list-group list-group-flush"></ul>
-      </section>
-    </section>
-
-    <!-- View for Client -->
-    <section id="clientView" class="role-view" style="display: none;">
-      <div class="client-welcome card text-white mb-4 p-4 rounded-4 shadow-lg">
-        <h2 class="h3 fw-bold mb-2">Agende sua Consulta</h2>
-        <p class="mb-0">Selecione uma sala disponível para agendar uma sessão.</p>
-      </div>
-      
-      <section id="availableRooms" class="mb-4">
-        <h2 class="h3 fw-bold mb-3">Salas Disponíveis</h2>
-        <div id="roomsGrid" class="row g-4 client-rooms"></div>
-      </section>
-      
-      <div class="client-form card shadow-sm p-4" id="bookingForm" style="display: none;">
-        <h3 class="h4 fw-bold text-center mb-4">Detalhes do Agendamento</h3>
-        <form id="clientBookingForm">
-          <div class="mb-3">
-            <label for="clientName" class="form-label">Seu Nome</label>
-            <input id="clientName" type="text" class="form-control" placeholder="Ex: João Silva" required />
+  <body class="bg-light">
+    <!-- MODAL AGENDAMENTO CLIENTE -->
+    <div
+      class="modal fade"
+      id="modalAgendamento"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow">
+          <div class="modal-header bg-success text-white">
+            <h5 class="modal-title fw-bold">Agendar Horário</h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
           </div>
-          <div class="mb-3">
-            <label for="clientEmail" class="form-label">Email</label>
-            <input id="clientEmail" type="email" class="form-control" placeholder="joao@email.com" required />
-          </div>
-          <div class="mb-4">
-            <label for="sessionType" class="form-label">Tipo de Sessão</label>
-            <select id="sessionType" class="form-select">
-              <option value="massagem">Massagem</option>
-              <option value="terapia">Terapia</option>
-              <option value="consulta">Consulta</option>
-            </select>
-          </div>
-          <button class="btn btn-success w-100 shadow-sm" type="submit">Confirmar Agendamento</button>
-        </form>
-      </div>
-    </section>
-  </main>
 
-  <template id="postTemplate">
-    <div class="col-md-6 col-lg-4">
-      <div class="post-card card h-100 border-0 shadow-sm p-4">
-        <div class="post-header">
-          <span class="post-type small fw-semibold"></span>
-          <strong class="post-name d-block h5 mb-0 fw-bold"></strong>
-        </div>
-        <div class="post-body d-flex align-items-center gap-3 mt-2">
-          <div class="status-dot"></div>
-          <div class="post-info flex-grow-1">
-            <div class="assigned fw-medium"></div>
-            <div class="timer text-muted small"></div>
-          </div>
-        </div>
-        <div class="post-actions mt-auto pt-3">
-          <button class="btn btn-success w-100 mb-2 shadow-sm start">Iniciar Sessão</button>
-          <button class="btn btn-danger w-100 mb-2 shadow-sm end" disabled>Finalizar Sessão</button>
-          <button class="btn btn-outline-success w-100 maintenance">Manutenção</button>
+          <form id="formAgendamento">
+            <div class="modal-body">
+              <div class="mb-3">
+                <label class="form-label">Nome completo</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="clienteNomeModal"
+                  required
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Telefone</label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="clienteTelefoneModal"
+                  required
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">E-mail</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="clienteEmailModal"
+                />
+              </div>
+
+              <input type="hidden" id="unidadeSelecionada" />
+
+              <div
+                id="mensagemAgendamento"
+                class="small text-center mt-2"
+              ></div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success w-100 fw-semibold">
+                Confirmar Agendamento
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-  </template>
 
-  <template id="clientRoomTemplate">
-    <div class="col-md-6 col-lg-4">
-      <div class="post-card client-room card h-100 border-0 shadow-sm p-4 cursor-pointer">
-        <div class="post-header">
-          <span class="post-type small fw-semibold">Sala Disponível</span>
-          <strong class="post-name d-block h5 mb-0 fw-bold">Sala <span class="room-number"></span></strong>
-        </div>
-        <div class="post-body d-flex align-items-center gap-3 mt-2">
-          <div class="status-dot green"></div>
-          <div class="post-info flex-grow-1">
-            <div class="assigned fw-medium">Terapeuta: <span class="therapist-name"></span></div>
-            <div class="timer text-muted small">Duração: 60 min</div>
+    <header class="bg-white shadow-sm py-3">
+      <div class="container d-flex align-items-center justify-content-between">
+        <a href="dashboard.html" class="btn btn-outline-success btn-sm"
+          >Voltar</a
+        >
+        <h1 class="h4 mb-0 fw-bold text-center flex-grow-1" id="unitTitle">
+          Unidade
+        </h1>
+        <div id="userInfo" class="d-flex align-items-center"></div>
+        <button id="addTherapistBtn" class="btn btn-success btn-sm d-none">
+          Adicionar Terapeuta
+        </button>
+      </div>
+    </header>
+
+    <main class="container py-4">
+      <!-- View for Reception/Admin -->
+      <section id="receptionView" class="role-view">
+        <section id="scale" class="mb-5">
+          <h2 class="h3 fw-bold mb-3">Escala do dia</h2>
+          <div id="therapistsList" class="d-flex gap-3 flex-wrap"></div>
+        </section>
+
+        <section id="postsSection" class="mb-5">
+          <h2 class="h3 fw-bold mb-3">Postos de atendimento</h2>
+          <div id="postsGrid" class="row g-4"></div>
+        </section>
+
+        <section id="agenda">
+          <h2 class="h3 fw-bold mb-3">Próximos agendamentos</h2>
+          <ul id="nextAppointments" class="list-group list-group-flush"></ul>
+        </section>
+      </section>
+
+      <!-- View for Therapist -->
+      <section id="therapistView" class="role-view" style="display: none">
+        <div class="card shadow-sm mb-4 p-4 text-center">
+          <h2 class="h3 fw-bold mb-4">Minha Disponibilidade</h2>
+          <div
+            class="availability-toggle d-flex flex-column align-items-center gap-3"
+          >
+            <label
+              class="d-flex align-items-center gap-3 fw-semibold cursor-pointer"
+            >
+              <input
+                type="checkbox"
+                id="availabilityToggle"
+                class="d-none"
+                checked
+              />
+              <span class="toggle-switch"></span>
+              <span>Disponível no momento</span>
+            </label>
+            <p class="text-muted mb-0">Ative para receber agendamentos.</p>
           </div>
         </div>
-        <div class="post-actions mt-auto pt-3">
-          <button class="btn btn-success w-100 shadow-sm book-room">Agendar Agora</button>
+
+        <section id="mySchedule" class="mb-5">
+          <h2 class="h3 fw-bold mb-3">Minha Agenda Hoje</h2>
+          <ul
+            id="therapistAppointments"
+            class="list-group list-group-flush"
+          ></ul>
+        </section>
+      </section>
+
+      <!-- View for Client -->
+      <section id="clientView" class="role-view" style="display: none">
+        <div
+          class="client-welcome card text-white mb-4 p-4 rounded-4 shadow-lg"
+        >
+          <h2 class="h3 fw-bold mb-2">Agende sua Consulta</h2>
+          <p class="mb-0">
+            Selecione uma sala disponível para agendar uma sessão.
+          </p>
+        </div>
+
+        <section id="availableRooms" class="mb-4">
+          <h2 class="h3 fw-bold mb-3">Salas Disponíveis</h2>
+          <div id="roomsGrid" class="row g-4 client-rooms"></div>
+        </section>
+
+        <div
+          class="client-form card shadow-sm p-4"
+          id="bookingForm"
+          style="display: none"
+        >
+          <h3 class="h4 fw-bold text-center mb-4">Detalhes do Agendamento</h3>
+          <form id="clientBookingForm">
+            <div class="mb-3">
+              <label for="clientName" class="form-label">Seu Nome</label>
+              <input
+                id="clientName"
+                type="text"
+                class="form-control"
+                placeholder="Ex: João Silva"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="clientEmail" class="form-label">Email</label>
+              <input
+                id="clientEmail"
+                type="email"
+                class="form-control"
+                placeholder="joao@email.com"
+                required
+              />
+            </div>
+            <div class="mb-4">
+              <label for="sessionType" class="form-label">Tipo de Sessão</label>
+              <select id="sessionType" class="form-select">
+                <option value="massagem">Massagem</option>
+                <option value="terapia">Terapia</option>
+                <option value="consulta">Consulta</option>
+              </select>
+            </div>
+            <button class="btn btn-success w-100 shadow-sm" type="submit">
+              Confirmar Agendamento
+            </button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <template id="postTemplate">
+      <div class="col-md-6 col-lg-4">
+        <div class="post-card card h-100 border-0 shadow-sm p-4">
+          <div class="post-header">
+            <span class="post-type small fw-semibold"></span>
+            <strong class="post-name d-block h5 mb-0 fw-bold"></strong>
+          </div>
+          <div class="post-body d-flex align-items-center gap-3 mt-2">
+            <div class="status-dot"></div>
+            <div class="post-info flex-grow-1">
+              <div class="assigned fw-medium"></div>
+              <div class="timer text-muted small"></div>
+            </div>
+          </div>
+          <div class="post-actions mt-auto pt-3">
+            <button class="btn btn-success w-100 mb-2 shadow-sm start">
+              Iniciar Sessão
+            </button>
+            <button class="btn btn-danger w-100 mb-2 shadow-sm end" disabled>
+              Finalizar Sessão
+            </button>
+            <button class="btn btn-outline-success w-100 maintenance">
+              Manutenção
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  </template>
+    </template>
 
-  <!-- Template for therapists in scale -->
-  <template id="therapistTemplate">
-    <div class="therapist-item card border-0 shadow-sm p-3 flex-shrink-0">
-      <div class="fw-bold d-block mb-1">Nome Terapeuta</div>
-      <small class="text-muted role">Recepção/Terapeuta</small>
-    </div>
-  </template>
+    <template id="clientRoomTemplate">
+      <div class="col-md-6 col-lg-4">
+        <div
+          class="post-card client-room card h-100 border-0 shadow-sm p-4 cursor-pointer"
+        >
+          <div class="post-header">
+            <span class="post-type small fw-semibold">Sala Disponível</span>
+            <strong class="post-name d-block h5 mb-0 fw-bold"
+              >Sala <span class="room-number"></span
+            ></strong>
+          </div>
+          <div class="post-body d-flex align-items-center gap-3 mt-2">
+            <div class="status-dot green"></div>
+            <div class="post-info flex-grow-1">
+              <div class="assigned fw-medium">
+                Terapeuta: <span class="therapist-name"></span>
+              </div>
+              <div class="timer text-muted small">Duração: 60 min</div>
+            </div>
+          </div>
+          <div class="post-actions mt-auto pt-3">
+            <button class="btn btn-success w-100 shadow-sm book-room">
+              Agendar Agora
+            </button>
+          </div>
+        </div>
+      </div>
+    </template>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../js/unidade.js"></script>
-</body>
+    <!-- Template for therapists in scale -->
+    <template id="therapistTemplate">
+      <div class="therapist-item card border-0 shadow-sm p-3 flex-shrink-0">
+        <div class="fw-bold d-block mb-1">Nome Terapeuta</div>
+        <small class="text-muted role">Recepção/Terapeuta</small>
+      </div>
+    </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/unidade.js"></script>
+  </body>
 </html>

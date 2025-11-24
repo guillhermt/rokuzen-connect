@@ -8,7 +8,7 @@ function autenticarToken(req, res, next) {
 
   jwt.verify(
     token,
-    process.env.JWT_SECRET ||"segredo_super_secreto",
+    process.env.JWT_SECRET || "segredo_super_secreto",
     (err, usuario) => {
       if (err) return res.status(403).json({ erro: "Token inválido" });
 

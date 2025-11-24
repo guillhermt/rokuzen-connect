@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Configurar Horários - ROKUZEN</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .horario-item {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+        margin: 8px 0;
+        background: #f9f9f9;
+      }
+      .dia-header {
+        background: #a3c441;
+        color: white;
+        padding: 10px;
+        border-radius: 8px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body class="bg-light">
+    <div class="container py-5">
+      <h2 class="mb-4">
+        Configurar Horários - <span id="nomeUnidade">Carregando...</span>
+      </h2>
+
+      <div id="horariosContainer"></div>
+
+      <div class="my-4">
+        <button class="btn btn-success" onclick="adicionarHorario()">
+          + Adicionar Horário
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const unidadeId = urlParams.get("unidade");
+      const token = localStorage.getItem("token");
+
+      async function carregar() {
+        const resUnidade = await fetch(
+          `http://localhost:3000/unidades/${unidadeId}`
+        );
+        const unidade = await resUnidade.json();
+        document.getElementById("nomeUnidade").textContent =
+          unidade.nome_unidade;
+
+        const res = await fetch(
+          `http://localhost:3000/horarios?unidade_id=${unidadeId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        const horarios = await res.json();
+
+        const container = document.getElementById("horariosContainer");
+        const porDia = {};
+        horarios.forEach((h) => {
+          if (!porDia[h.dia_semana]) porDia[h.dia_semana] = [];
+          porDia[h.dia_semana].push(h);
+        });
+
+        const dias = [
+          "Domingo",
+          "Segunda",
+          "Terça",
+          "Quarta",
+          "Quinta",
+          "Sexta",
+          "Sábado",
+        ];
+        container.innerHTML = dias
+          .map(
+            (dia, i) => `
+        <div class="mb-4">
+          <div class="dia-header">${dia}</div>
+          <div id="dia${i}">
+            ${
+              porDia[i]
+                ?.map(
+                  (h) => `
+              <div class="horario-item d-flex justify-content-between align-items-center">
+                <span><strong>${h.horario.slice(0, 5)}</strong> 
+                  ${h.nome_posto ? `- ${h.nome_posto}` : ""} 
+                  ${h.terapeuta_nome ? `- ${h.terapeuta_nome}` : ""}</span>
+                <button class="btn btn-danger btn-sm" onclick="excluir(${
+                  h.horario_id
+                })">Excluir</button>
+              </div>
+            `
+                )
+                .join("") ||
+              "<p class='text-muted p-3'>Nenhum horário cadastrado</p>"
+            }
+          </div>
+        </div>
+      `
+          )
+          .join("");
+      }
+
+      function adicionarHorario() {
+        const dia = prompt("Dia da semana (0=Dom, 1=Seg, ..., 6=Sab):");
+        const hora = prompt("Horário (HH:MM):");
+        if (!dia || !hora) return;
+
+        fetch("http://localhost:3000/horarios", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            unidade_id: unidadeId,
+            dia_semana: dia,
+            horario: hora + ":00",
+          }),
+        }).then(() => location.reload());
+      }
+
+      function excluir(id) {
+        if (confirm("Excluir este horário?")) {
+          fetch(`http://localhost:3000/horarios/${id}`, {
+            method: "DELETE",
+            headers: { Authorization: `Bearer ${token}` },
+          }).then(() => location.reload());
+        }
+      }
+
+      carregar();
+    </script>
+  </body>
+</html>
