@@ -113,16 +113,17 @@
 
       <!-- BOTÃO SAIR -->
       <div class="text-center mt-5 footer-sair">
-        <button
-          class="btn btn-outline-danger px-5 py-3 fw-bold"
-          onclick="logout()"
-        >
-          <i class="bi bi-box-arrow-left me-2"></i> Sair do Sistema
+        <button id="voltarBtn" class="btn btn-outline-danger px-5 py-3 fw-bold">
+          <i class="bi bi-box-arrow-left me-2"></i> Voltar
         </button>
       </div>
     </div>
 
     <script>
+      voltarBtn = document.getElementById("voltarBtn");
+      voltarBtn.addEventListener("click", () => {
+        window.location.href = "login.html";
+      });
       const API = "http://localhost:3000";
       const token = localStorage.getItem("token");
       const user = JSON.parse(localStorage.getItem("rok_user") || "{}");
@@ -188,14 +189,7 @@
       function entrarNaUnidade(id, nome) {
         localStorage.setItem("unidade_atual_id", id);
         localStorage.setItem("unidade_atual_nome", nome);
-        location.href = "recepcao-controle.html";
-      }
-
-      function logout() {
-        if (confirm("Tem certeza que deseja sair?")) {
-          localStorage.clear();
-          location.href = "../screens/login.html";
-        }
+        location.href = "cliente-controle.html";
       }
 
       // Carrega ao abrir a página

@@ -9,8 +9,11 @@
       rel="stylesheet"
     />
     <!-- BOOTSTRAP ICONS (necessário pro olhinho) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
     <style>
       :root {
         --primary-color: #a3c441;
@@ -83,19 +86,23 @@
 
               <form id="loginForm">
                 <div class="mb-3">
-                  <label for="userName" class="form-label fw-semibold">E-mail</label>
+                  <label for="userName" class="form-label fw-semibold"
+                    >E-mail</label
+                  >
                   <input
                     id="userName"
                     type="email"
                     class="form-control"
-                    placeholder="admin@rokuzen.com"
+                    placeholder="Insira seu e-mail"
                     required
                   />
                 </div>
 
                 <!-- CAMPO DE SENHA COM OLHINHO -->
                 <div class="mb-3 position-relative">
-                  <label for="senha" class="form-label fw-semibold">Senha</label>
+                  <label for="senha" class="form-label fw-semibold"
+                    >Senha</label
+                  >
                   <input
                     id="senha"
                     type="password"
@@ -106,7 +113,7 @@
                   <button
                     type="button"
                     class="btn btn-link position-absolute end-0 top-50 translate-middle-y text-muted"
-                    style="z-index: 10; margin-top: 12px;"
+                    style="z-index: 10; margin-top: 12px"
                     id="toggleSenha"
                   >
                     <i class="bi bi-eye-slash" id="iconeOlho"></i>
@@ -150,9 +157,8 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <!-- Seus scripts originais -->
-    <script src="../js/seed.js"></script>
     <script src="../js/auth.js"></script>
 
     <!-- OLHINHO FUNCIONANDO 100% -->
@@ -173,5 +179,22 @@
         });
       });
     </script>
+    <!-- VLibras -->
+<div vw class="enabled">
+  <div vw-access-button class="active"></div>
+  <div vw-plugin-wrapper>
+    <div class="vw-plugin-top-wrapper"></div>
+  </div>
+</div>
+
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+  new window.VLibras.Widget('https://vlibras.gov.br/app');
+  
+  // Opcional: abre automaticamente depois de 3 segundos (muito usado em sites públicos)
+  // setTimeout(() => {
+  //   document.querySelector('[vw-access-button]').click();
+  // }, 3000);
+</script>
   </body>
 </html>

@@ -89,6 +89,6 @@ const clientLoginBtn = document.getElementById("clientLoginBtn");
 
 if (clientLoginBtn) {
   clientLoginBtn.addEventListener("click", () => {
-    window.location.href = "dashboard.html";
+    window.location.href = "cliente-selecao.html";
   });
 }
