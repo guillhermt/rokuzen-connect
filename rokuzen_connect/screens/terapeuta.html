@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Terapeuta • ROKUZEN</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --rokuzen: #a3c441;
+        --rokuzen-dark: #8fb23a;
+        --livre: #28a745;
+        --ocupado: #dc3545;
+        --intervalo: #ffc107;
+        --indisponivel: #6c757d;
+      }
+      body {
+        background: #f8f9fa;
+        font-family: "Inter", sans-serif;
+        padding-bottom: 120px;
+      }
+      .navbar-custom {
+        background: linear-gradient(
+          135deg,
+          var(--rokuzen),
+          var(--rokuzen-dark)
+        );
+        box-shadow: 0 10px 30px rgba(163, 196, 65, 0.3);
+      }
+      .card-principal {
+        border-radius: 32px;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        max-width: 500px;
+        margin: 2rem auto;
+      }
+      .header-terapeuta {
+        padding: 3rem 2rem;
+        text-align: center;
+        color: white;
+        font-weight: 900;
+        transition: background 0.5s;
+      }
+      .cronometro {
+        font-size: 5rem;
+        font-weight: 900;
+        text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      }
+      .btn-gigante {
+        padding: 1.8rem;
+        font-size: 1.6rem;
+        border-radius: 24px;
+        font-weight: 700;
+      }
+      .status-badge {
+        font-size: 1.4rem;
+        padding: 0.8rem 1.6rem;
+        border-radius: 50px;
+      }
+      .footer-fixed {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
+        padding: 20px 0;
+        z-index: 1000;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-dark navbar-custom text-white py-4">
+      <div class="container-fluid">
+        <h1 class="mb-0 fw-bold fs-3">
+          <i class="bi bi-person-heart"></i>
+          <span id="nomeTerapeuta">Alvaro</span>
+        </h1>
+        <button id="logoutBtn" class="btn btn-outline-light">Sair</button>
+      </div>
+    </nav>
+
+    <div class="container mt-4">
+      <div class="card card-principal">
+        <div
+          class="header-terapeuta"
+          id="headerStatus"
+          style="background: var(--livre)"
+        >
+          <h2 id="nomePosto">Posto 03</h2>
+          <div class="cronometro" id="cronometro">00:00</div>
+          <div
+            id="clienteAtual"
+            class="mt-3 fw-bold fs-4 opacity-90"
+            style="display: none"
+          ></div>
+        </div>
+
+        <div class="card-body p-4">
+          <div class="text-center mb-4">
+            <span class="badge status-badge bg-success" id="statusBadge"
+              >Disponível</span
+            >
+          </div>
+
+          <div class="d-grid gap-3">
+            <button
+              class="btn btn-warning btn-gigante text-white"
+              id="btnIntervalo"
+            >
+              Iniciar Intervalo
+            </button>
+            <button class="btn btn-secondary btn-gigante" id="btnIndisponivel">
+              Marcar como Indisponível
+            </button>
+            <button
+              class="btn btn-success btn-gigante"
+              id="btnIniciarAtendimento"
+              style="display: none"
+            >
+              Iniciar Atendimento
+            </button>
+            <button
+              class="btn btn-outline-danger btn-lg mt-4"
+              id="btnFinalizar"
+              style="display: none"
+            >
+              Finalizar Atendimento
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-fixed border-top">
+      <div class="container text-center">
+        <p class="mb-0 fw-bold text-muted">Unidade: Shopping Jardins</p>
+      </div>
+    </div>
+
+    <script>
+      const logoutBtn = document.getElementById("logoutBtn");
+
+      if (logoutBtn) {
+        logoutBtn.addEventListener("click", () => {
+          window.location.href = "login.html";
+        });
+      }
+      const terapeutaId = "ana_clara"; // mudar para cada terapeuta (ex: juliana, renata)
+      const postoId = 3;
+
+      let estado = "livre";
+      let timer = null;
+      let segundos = 0;
+
+      const header = document.getElementById("headerStatus");
+      const cronometro = document.getElementById("cronometro");
+      const clienteAtual = document.getElementById("clienteAtual");
+      const statusBadge = document.getElementById("statusBadge");
+      const btnIntervalo = document.getElementById("btnIntervalo");
+      const btnIndisponivel = document.getElementById("btnIndisponivel");
+      const btnIniciar = document.getElementById("btnIniciarAtendimento");
+      const btnFinalizar = document.getElementById("btnFinalizar");
+
+      function salvarEstado() {
+        const dados = {
+          terapeutaId,
+          nome: document.getElementById("nomeTerapeuta").textContent,
+          posto: postoId,
+          estado,
+          segundos,
+          ultimoUpdate: Date.now(),
+        };
+        localStorage.setItem(`terapeuta_${terapeutaId}`, JSON.stringify(dados));
+        localStorage.setItem(
+          `posto_${postoId}`,
+          JSON.stringify({
+            estado: estado === "ocupado" ? "ocupado" : "livre",
+            terapeuta: terapeutaId,
+          })
+        );
+      }
+
+      function atualizarVisual() {
+        header.style.background =
+          estado === "livre"
+            ? "var(--livre)"
+            : estado === "ocupado"
+            ? "var(--ocupado)"
+            : estado === "intervalo"
+            ? "var(--intervalo)"
+            : "var(--indisponivel)";
+
+        statusBadge.textContent =
+          estado === "livre"
+            ? "Disponível"
+            : estado === "ocupado"
+            ? "Em Atendimento"
+            : estado === "intervalo"
+            ? "Em Intervalo"
+            : "Indisponível";
+
+        statusBadge.className =
+          "badge status-badge " +
+          (estado === "livre"
+            ? "bg-success"
+            : estado === "ocupado"
+            ? "bg-danger"
+            : estado === "intervalo"
+            ? "bg-warning text-dark"
+            : "bg-secondary");
+
+        if (estado === "ocupado") {
+          cronometro.textContent = new Date(segundos * 1000)
+            .toISOString()
+            .substr(14, 5);
+          btnIniciar.style.display = "none";
+          btnFinalizar.style.display = "block";
+          clienteAtual.style.display = "block";
+        } else {
+          cronometro.textContent = estado === "livre" ? "00:00" : "--:--";
+          btnIniciar.style.display = estado === "livre" ? "block" : "none";
+          btnFinalizar.style.display = "none";
+          clienteAtual.style.display = "none";
+        }
+
+        salvarEstado();
+      }
+
+      // Botões
+      btnIntervalo.onclick = () => {
+        estado = estado === "intervalo" ? "livre" : "intervalo";
+        segundos = 0;
+        atualizarVisual();
+      };
+      btnIndisponivel.onclick = () => {
+        estado = "indisponivel";
+        segundos = 0;
+        atualizarVisual();
+      };
+      btnIniciar.onclick = () => {
+        estado = "ocupado";
+        segundos = 0;
+        clienteAtual.textContent = "Cliente: " + prompt("Nome do cliente:");
+        atualizarVisual();
+        iniciarCronometro();
+      };
+      btnFinalizar.onclick = () => {
+        if (confirm("Finalizar atendimento?")) {
+          estado = "livre";
+          segundos = 0;
+          clearInterval(timer);
+          atualizarVisual();
+        }
+      };
+
+      function iniciarCronometro() {
+        clearInterval(timer);
+        timer = setInterval(() => {
+          segundos++;
+          if (estado === "ocupado")
+            cronometro.textContent = new Date(segundos * 1000)
+              .toISOString()
+              .substr(14, 5);
+        }, 1000);
+      }
+
+      // Carregar estado anterior (se recarregar a página)
+      const salvo = localStorage.getItem(`terapeuta_${terapeutaId}`);
+      if (salvo) {
+        const dados = JSON.parse(salvo);
+        estado = dados.estado;
+        segundos = dados.segundos || 0;
+        if (dados.estado === "ocupado") iniciarCronometro();
+      }
+
+      atualizarVisual();
+    </script>
+  </body>
+</html>
